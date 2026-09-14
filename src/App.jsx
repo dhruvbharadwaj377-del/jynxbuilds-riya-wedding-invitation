@@ -835,7 +835,7 @@ function Story() {
           </p>
 
           <p>
-            Little did we know that our first meet in 11th avenue
+            Little did we know that our first meet in 11th Avenue Cafe
             <br />
             Will tie our knot for 7 lives.
           </p>
