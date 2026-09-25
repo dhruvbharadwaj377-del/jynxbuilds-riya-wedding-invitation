@@ -576,6 +576,202 @@ function Countdown({ config, active }) {
   )
 }
 
+const celebrationParticles = [
+  // long gold ribbons erupting from the seal, sweeping past its edges
+  { cls: 'p-ribbon', left: 50, top: 50, w: '4px', h: '58vh', dx: '-34vw', dy: '-46vh', fall: '72vh', rot: -300, delay: 300, dur: 1650 },
+  { cls: 'p-ribbon', left: 50, top: 50, w: '5px', h: '72vh', dx: '30vw', dy: '-52vh', fall: '80vh', rot: 340, delay: 340, dur: 1750 },
+  { cls: 'p-ribbon', left: 49, top: 51, w: '4px', h: '45vh', dx: '-22vw', dy: '-58vh', fall: '68vh', rot: -220, delay: 380, dur: 1500 },
+  { cls: 'p-ribbon', left: 51, top: 50, w: '4px', h: '64vh', dx: '18vw', dy: '-60vh', fall: '75vh', rot: 260, delay: 320, dur: 1700 },
+
+  // ribbons sweeping in from screen edges/corners, arcing toward center then falling
+  { cls: 'p-ribbon', left: 14, top: -6, w: '4px', h: '48vh', dx: '26vw', dy: '48vh', fall: '46vh', rot: 200, delay: 420, dur: 2000 },
+  { cls: 'p-ribbon', left: 86, top: -4, w: '4px', h: '52vh', dx: '-24vw', dy: '50vh', fall: '48vh', rot: -220, delay: 460, dur: 2100 },
+  { cls: 'p-ribbon', left: -3, top: 26, w: '4px', h: '40vh', dx: '46vw', dy: '30vh', fall: '55vh', rot: 180, delay: 520, dur: 2200 },
+  { cls: 'p-ribbon', left: 103, top: 30, w: '4px', h: '42vh', dx: '-44vw', dy: '28vh', fall: '52vh', rot: -190, delay: 560, dur: 2300 },
+  { cls: 'p-ribbon', left: 50, top: -6, w: '4px', h: '50vh', dx: '10vw', dy: '55vh', fall: '50vh', rot: 140, delay: 500, dur: 2100 },
+  { cls: 'p-ribbon', left: 22, top: 8, w: '4px', h: '46vh', dx: '48vw', dy: '58vh', fall: '46vh', rot: 260, delay: 600, dur: 2250 },
+
+  // shorter curling ribbon pieces near the seal
+  { cls: 'p-ribbon curl', left: 50, top: 50, w: '3px', h: '20vh', dx: '-14vw', dy: '-24vh', fall: '42vh', rot: -480, delay: 360, dur: 1600 },
+  { cls: 'p-ribbon curl', left: 50, top: 50, w: '3px', h: '18vh', dx: '16vw', dy: '-20vh', fall: '40vh', rot: 500, delay: 400, dur: 1650 },
+  { cls: 'p-ribbon curl', left: 50, top: 50, w: '3px', h: '22vh', dx: '-8vw', dy: '-28vh', fall: '44vh', rot: -420, delay: 440, dur: 1700 },
+  { cls: 'p-ribbon curl', left: 50, top: 50, w: '3px', h: '19vh', dx: '9vw', dy: '-26vh', fall: '41vh', rot: 440, delay: 420, dur: 1620 },
+
+  // gold foil confetti erupting from the seal
+  { cls: 'p-confetti', left: 50, top: 50, w: '12px', h: '12px', dx: '-20vw', dy: '-30vh', fall: '58vh', rot: 340, delay: 320, dur: 1400 },
+  { cls: 'p-confetti', left: 50, top: 50, w: '10px', h: '10px', dx: '24vw', dy: '-26vh', fall: '60vh', rot: -360, delay: 360, dur: 1450 },
+  { cls: 'p-confetti', left: 50, top: 50, w: '13px', h: '13px', dx: '-32vw', dy: '-14vh', fall: '55vh', rot: 300, delay: 340, dur: 1350 },
+  { cls: 'p-confetti', left: 50, top: 50, w: '11px', h: '11px', dx: '30vw', dy: '-10vh', fall: '57vh', rot: -320, delay: 400, dur: 1420 },
+  { cls: 'p-confetti', left: 50, top: 50, w: '12px', h: '12px', dx: '-10vw', dy: '-36vh', fall: '62vh', rot: 260, delay: 380, dur: 1500 },
+  { cls: 'p-confetti', left: 50, top: 50, w: '10px', h: '10px', dx: '12vw', dy: '-34vh', fall: '60vh', rot: -280, delay: 420, dur: 1480 },
+
+  // confetti raining from the top of the viewport
+  { cls: 'p-confetti', left: 10, top: -6, w: '11px', h: '11px', dx: '8vw', dy: '50vh', fall: '64vh', rot: 420, delay: 620, dur: 2600 },
+  { cls: 'p-confetti', left: 28, top: -8, w: '12px', h: '12px', dx: '-10vw', dy: '54vh', fall: '68vh', rot: -400, delay: 720, dur: 2700 },
+  { cls: 'p-confetti', left: 46, top: -5, w: '10px', h: '10px', dx: '12vw', dy: '52vh', fall: '64vh', rot: 380, delay: 800, dur: 2650 },
+  { cls: 'p-confetti', left: 64, top: -7, w: '12px', h: '12px', dx: '-9vw', dy: '54vh', fall: '66vh', rot: -420, delay: 700, dur: 2750 },
+  { cls: 'p-confetti', left: 80, top: -6, w: '11px', h: '11px', dx: '10vw', dy: '53vh', fall: '65vh', rot: 400, delay: 780, dur: 2680 },
+  { cls: 'p-confetti', left: 92, top: -8, w: '10px', h: '10px', dx: '-11vw', dy: '51vh', fall: '63vh', rot: -360, delay: 660, dur: 2620 },
+
+  // ivory paper fragments erupting from the seal
+  { cls: 'p-paper', left: 50, top: 50, w: '16px', h: '21px', dx: '-26vw', dy: '-22vh', fall: '60vh', rot: 180, delay: 360, dur: 1550 },
+  { cls: 'p-paper', left: 50, top: 50, w: '15px', h: '20px', dx: '28vw', dy: '-18vh', fall: '58vh', rot: -200, delay: 400, dur: 1600 },
+  { cls: 'p-paper', left: 50, top: 50, w: '17px', h: '22px', dx: '-6vw', dy: '-32vh', fall: '64vh', rot: 150, delay: 440, dur: 1650 },
+
+  // paper fragments falling from above
+  { cls: 'p-paper', left: 20, top: -7, w: '15px', h: '20px', dx: '9vw', dy: '55vh', fall: '67vh', rot: 260, delay: 760, dur: 2800 },
+  { cls: 'p-paper', left: 55, top: -6, w: '16px', h: '21px', dx: '-8vw', dy: '56vh', fall: '68vh', rot: -240, delay: 860, dur: 2850 },
+  { cls: 'p-paper', left: 74, top: -8, w: '14px', h: '19px', dx: '10vw', dy: '54vh', fall: '66vh', rot: 220, delay: 820, dur: 2780 },
+  { cls: 'p-paper', left: 38, top: -5, w: '15px', h: '20px', dx: '-9vw', dy: '55vh', fall: '68vh', rot: -260, delay: 900, dur: 2900 },
+
+  // delicate petals drifting down
+  { cls: 'p-petal', left: 24, top: -6, w: '18px', h: '24px', dx: '14vw', dy: '57vh', fall: '70vh', rot: 100, delay: 900, dur: 2950 },
+  { cls: 'p-petal', left: 42, top: -8, w: '20px', h: '26px', dx: '-13vw', dy: '58vh', fall: '71vh', rot: -110, delay: 1000, dur: 3000 },
+  { cls: 'p-petal', left: 60, top: -5, w: '17px', h: '23px', dx: '12vw', dy: '56vh', fall: '70vh', rot: 90, delay: 950, dur: 2900 },
+  { cls: 'p-petal', left: 78, top: -7, w: '19px', h: '25px', dx: '-11vw', dy: '57vh', fall: '71vh', rot: -95, delay: 1050, dur: 3050 },
+  { cls: 'p-petal', left: 50, top: 50, w: '16px', h: '21px', dx: '4vw', dy: '-18vh', fall: '68vh', rot: 130, delay: 460, dur: 1750 },
+
+  // two larger decorative accents for visual weight
+  { cls: 'p-paper accent', left: 50, top: 50, w: '24px', h: '30px', dx: '-16vw', dy: '-20vh', fall: '66vh', rot: 160, delay: 420, dur: 1800 },
+  { cls: 'p-confetti accent', left: 50, top: 50, w: '18px', h: '18px', dx: '18vw', dy: '-16vh', fall: '64vh', rot: -260, delay: 440, dur: 1780 },
+]
+
+function CelebrationBurst() {
+  return (
+    <div className="celebration-burst" aria-hidden="true">
+      {celebrationParticles.map((particle, index) => (
+        <span
+          key={index}
+          className={`burst-particle ${particle.cls}`}
+          style={{
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+            width: particle.w,
+            height: particle.h,
+            '--dx': particle.dx,
+            '--dy': particle.dy,
+            '--fall': particle.fall,
+            '--rot': `${particle.rot}deg`,
+            animationDelay: `${particle.delay}ms`,
+            animationDuration: `${particle.dur}ms`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function PressCue({ hidden }) {
+  return (
+    <div
+      className={`press-cue-wrap ${
+        hidden ? 'is-hidden' : ''
+      }`}
+      aria-hidden="true"
+    >
+      <div className="press-cue-motion">
+        <span className="press-cue-glow" />
+
+        <svg
+          className="press-cue-hand"
+          viewBox="0 0 100 110"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient
+              id="pressCueGold"
+              x1="0%"
+              y1="100%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="#7c5a26" />
+              <stop offset="45%" stopColor="#d9b567" />
+              <stop offset="75%" stopColor="#f3dfa2" />
+              <stop offset="100%" stopColor="#c79c50" />
+            </linearGradient>
+
+            <linearGradient
+              id="pressCueFade"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop
+                offset="0%"
+                stopColor="#fff"
+                stopOpacity="1"
+              />
+              <stop
+                offset="78%"
+                stopColor="#fff"
+                stopOpacity="1"
+              />
+              <stop
+                offset="100%"
+                stopColor="#fff"
+                stopOpacity="0"
+              />
+            </linearGradient>
+
+            <mask id="pressCueMask">
+              <rect
+                x="0"
+                y="0"
+                width="100"
+                height="110"
+                fill="url(#pressCueFade)"
+              />
+            </mask>
+          </defs>
+
+          <g
+            mask="url(#pressCueMask)"
+            fill="url(#pressCueGold)"
+          >
+            <rect
+              x="34"
+              y="82"
+              width="38"
+              height="28"
+              rx="9"
+            />
+
+            <ellipse
+              cx="50"
+              cy="72"
+              rx="21"
+              ry="19"
+            />
+
+            <ellipse
+              cx="30"
+              cy="70"
+              rx="8.5"
+              ry="11.5"
+              transform="rotate(-18 30 70)"
+            />
+
+            <path
+              d="M56 60 C54 47 53 34 56 21 C57 14 61 10 66 10 C71 10 75 14 74 21 C72 33 70 46 68 59 C68 64 62 66 56 63 Z"
+            />
+
+            <ellipse
+              cx="65"
+              cy="18"
+              rx="5"
+              ry="7"
+              fill="#fbeecb"
+              opacity="0.55"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  )
+}
+
 function Opening({ onOpen, onBeginOpen }) {
   const [breaking, setBreaking] =
     useState(false)
@@ -591,7 +787,7 @@ function Opening({ onOpen, onBeginOpen }) {
 
     setTimeout(() => {
       onOpen()
-    }, 3000)
+    }, 3300)
   }
 
   return (
@@ -640,6 +836,8 @@ function Opening({ onOpen, onBeginOpen }) {
           <i />
         </div>
       </div>
+
+      <CelebrationBurst />
 
       <div className="card-stage">
         <div className="wedding-card">
@@ -737,6 +935,8 @@ function Opening({ onOpen, onBeginOpen }) {
 
               <span className="seal-crack crack-bottom" />
             </button>
+
+            <PressCue hidden={breaking} />
           </div>
         </div>
       </div>
